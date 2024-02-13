@@ -13,6 +13,7 @@ class LoggingController:
             unique_uuid = data['uuid']
             msg = data['msg']
             self.messages[unique_uuid] = msg
+            print("Message received: " + msg + ". Saved with unique id: " + unique_uuid)
             return '', 200
 
         @self.logging_service.route('/logging_service', methods=['GET'])

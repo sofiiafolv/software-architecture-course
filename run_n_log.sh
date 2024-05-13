@@ -8,7 +8,7 @@ fi
 LOGGING_SERVICES_NUMBER="$1"
 
 for ((i=1; i<=LOGGING_SERVICES_NUMBER; i++)); do
-    port=$((8000 + i))
+    port=$((8010 + i))
     python logging-service/LoggingController.py $port &
 done
 

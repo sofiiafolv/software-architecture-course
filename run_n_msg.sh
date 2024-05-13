@@ -8,7 +8,7 @@ fi
 MESSAGES_SERVICES_NUMBER="$1"
 
 for ((i=1; i<=MESSAGES_SERVICES_NUMBER; i++)); do
-    port=$((9081 + i))
+    port=$((9080 + i))
     python messages-service/MessagesController.py $port &
 done
 

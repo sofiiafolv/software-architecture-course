@@ -3,12 +3,16 @@ import requests
 import uuid
 import random
 import hazelcast
+import os
+
+LOGGING_SERVICES_NUMBER = int(os.getenv("LOGGING_SERVICES_NUMBER"))
+MESSAGES_SERVICES_NUMBER = int(os.getenv("MESSAGES_SERVICES_NUMBER"))
 
 class FacadeController:
     def __init__(self):
         self.facade_service = Flask(__name__)
-        self.logging_ports = [8082, 8083, 8084]
-        self.messaging_ports = [8085, 8086]
+        self.logging_ports = [8011 + i for i in range(LOGGING_SERVICES_NUMBER)]
+        self.messaging_ports = [9081 + i for i in range(MESSAGES_SERVICES_NUMBER)]
         self.client = hazelcast.HazelcastClient()
         self.messaging_queue = self.client.get_queue("messaging_queue")
 

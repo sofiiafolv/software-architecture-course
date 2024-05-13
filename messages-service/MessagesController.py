@@ -10,7 +10,7 @@ class MessagesController:
             return jsonify("not implemented yet")
 
     def run(self):
-        self.messages_service.run(port=8085, debug=True)
+        self.messages_service.run(port=8082, debug=True)
 
 
 if __name__ == "__main__":

@@ -2,11 +2,14 @@ from flask import jsonify, request, Flask, make_response
 import requests
 import uuid
 import random
+import os
+
+LOGGING_SERVICES_NUMBER = int(os.getenv("LOGGING_SERVICES_NUMBER"))
 
 class FacadeController:
     def __init__(self):
         self.facade_service = Flask(__name__)
-        self.logging_ports = [8082, 8083, 8084]
+        self.logging_ports = [8001 + i for i in range(LOGGING_SERVICES_NUMBER)]
 
         @self.facade_service.route('/facade_service', methods=['POST'])
         def post_request():
@@ -19,7 +22,7 @@ class FacadeController:
         @self.facade_service.route('/facade_service', methods=['GET'])
         def get_response():
             logging_service_response = requests.get(f'http://localhost:{random.choice(self.logging_ports)}/logging_service')
-            message_service_response = requests.get('http://localhost:8085/messages_service')
+            message_service_response = requests.get('http://localhost:8082/messages_service')
 
             return jsonify(logging_service_response.json(), message_service_response.json())
 
